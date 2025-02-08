@@ -28,6 +28,19 @@ pipeline {
             }
         }
 
+        stage ('Push to Artifactory') {
+            steps {
+                echo "Pushing the ${IMAGE_NAME} to artifactory"
+                withCredentials([usernamePassword(credentialsId: 'artifactoryCred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo "Using username: $USER"'
+                    sh "docker login -u ${env.USER} -p ${env.PASS}"
+                    sh "docker tag my-flask-app:latest ${env.USER}/docker-trial/my-flask-app:latest"
+                    sh "docker push  ${env.USER}/docker-trial/my-flask-app:latest"
+                }
+
+            }
+        }
+
         stage('Deploy Container') {
             steps {
                 echo "Deploying application..."
