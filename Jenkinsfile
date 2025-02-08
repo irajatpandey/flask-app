@@ -32,10 +32,11 @@ pipeline {
             steps {
                 echo "Pushing the ${IMAGE_NAME} to artifactory"
                 withCredentials([usernamePassword(credentialsId: 'artifactoryCred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'echo "Using username: $USER"'
-                    docker login -u ${USER} -p ${PASS} learndevopskill.jfrog.io
-                    sh "docker tag my-flask-app:latest ${env.USER}/docker-trial/my-flask-app:latest"
-                    sh "docker push  ${env.USER}/docker-trial/my-flask-app:latest"
+                        sh '''
+                        docker login -u ${USER} -p ${PASS} learndevopskill.jfrog.io
+                        docker tag my-flask-app:latest ${USER}/docker-trial/my-flask-app:latest
+                        docker push ${USER}/docker-trial/my-flask-app:latest
+                        '''
                 }
 
             }
