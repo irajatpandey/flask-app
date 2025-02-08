@@ -33,7 +33,7 @@ pipeline {
                 echo "Pushing the ${IMAGE_NAME} to artifactory"
                 withCredentials([usernamePassword(credentialsId: 'artifactoryCred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo "Using username: $USER"'
-                    sh "docker login -u learndevopskill@gmail.com ${env.USER} -p ${env.PASS}"
+                    sh "docker login -u learndevopskill@gmail.com ${USER} -p ${PASS}"
                     sh "docker tag my-flask-app:latest ${env.USER}/docker-trial/my-flask-app:latest"
                     sh "docker push  ${env.USER}/docker-trial/my-flask-app:latest"
                 }
