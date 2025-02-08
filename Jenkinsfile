@@ -35,7 +35,7 @@ pipeline {
                         sh '''
                         docker login -u ${USER} -p ${PASS} learndevopskill.jfrog.io
                         docker tag my-flask-app:latest ${USER}/docker-trial/my-flask-app:latest
-                        docker push ${USER}/docker-trial/my-flask-app:latest
+                        docker push learndevopskill.jfrog.io/docker-trial/my-flask-app:latest
                         '''
                 }
 
