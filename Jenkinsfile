@@ -34,7 +34,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'artifactoryCred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh '''
                         docker login -u ${USER} -p ${PASS} learndevopskill.jfrog.io
-                        docker tag my-flask-app:latest ${USER}/docker-trial/my-flask-app:latest
+                        docker tag my-flask-app:latest learndevopskill.jfrog.io/docker-trial/my-flask-app:latest
                         docker push learndevopskill.jfrog.io/docker-trial/my-flask-app:latest
                         '''
                 }
